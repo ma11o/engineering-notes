@@ -11,7 +11,7 @@
 | 役割 | 調査の入口と、処理のつながり・性能を見る | 業務上の判断の証跡と、詳細なアプリログを残す |
 | 主なデータ | Browserのページ表示・AJAX、APMのトランザクション、分散トレースのspan、エラー | アプリが出す構造化ログ（JSON） |
 | 得意なこと | 遅い・失敗したリクエストを見つける。画面→API→DB・外部APIの流れと所要時間を見る | 「その時点で何を判断して返したか」を一件ずつ確かめる |
-| 共通例2で置くもの | 予約可能日APIのトランザクション、所要時間、エラー、`reservation_flow_id` などの属性 | `reservation.availability.evaluated`（返した日付と、返さなかった理由）、`reservation.rejected` |
+| 共通例2で置くもの | 予約可能日APIのトランザクション、所要時間、エラー、`reservation_flow_id` などの属性 | `reservation.availability.evaluated`（予約できない日とその理由、予約可能日の件数）、`reservation.rejected` |
 | 既定の保存期間 | 標準の契約（Original Data option）でBrowser・APMのトランザクション・spanは8日、ログは30日 | ロググループごとに設定。既定は無期限 |
 
 保存期間の違いが、役割分担の理由の一つになる。New Relicのトランザクションやトレースは標準の契約では8日で消える（[New Relic: Manage data retention](https://docs.newrelic.com/docs/data-apis/manage-data/manage-data-retention/)）。問い合わせが8日より後に来たら、New Relicからは辿れない。判断の証跡は、既定で無期限に残るCloudWatch Logsに置き（[AWS: Working with log groups and log streams](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html)）、**CloudWatchの記録だけでも調査を始められるよう、必要なIDをログ自体に入れる**。
@@ -92,7 +92,7 @@ SINCE '2026-10-03 09:00:00' UNTIL '2026-10-03 10:00:00'
 CloudWatch Logs InsightsはJSONのフィールドを自動で認識し、入れ子のフィールドは `unavailable_by_reason.slot_full` のようにドットでつないで扱える（[AWS: Supported logs and discovered fields](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_AnalyzeLogData-discoverable-fields.html)）。
 
 ```text
-fields @timestamp, event, evaluated_at, available_dates, unavailable_by_reason.slot_full, rule_version
+fields @timestamp, event, evaluated_at, available_count, unavailable_by_reason.slot_full, rule_version
 | filter reservation_flow_id = "rf-3301"
 | sort @timestamp asc
 ```
