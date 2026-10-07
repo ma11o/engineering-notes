@@ -59,5 +59,6 @@ nav:
       - イベントと相関の根拠: research/sources/event-correlation.md
       - レベル・結果・通知の根拠: research/sources/severity-outcomes.md
       - 情報保護と記録保証の根拠: research/sources/log-guarantees.md
+      - 判断の理由を記録する先行例: research/sources/decision-reasons.md
       - 論点別の補足: research/external-evidence.md
       - レビュー観点と試験の対応表: research/review-test-matrix.md

@@ -8,6 +8,7 @@
 - [イベントと相関の根拠](sources/event-correlation.md)：OTelのモデル・意味規約、W3Cの伝播形式と信頼境界
 - [レベル・結果・通知の根拠](sources/severity-outcomes.md)：severity、操作の成否、例外ガイダンス、SLO通知
 - [情報保護と記録保証の根拠](sources/log-guarantees.md)：OWASP、収集最小化、sampling、Collector、Loki
+- [判断の理由を記録する先行例](sources/decision-reasons.md)：機能フラグの評価理由（OpenFeature、OpenTelemetry、LaunchDarkly）と、予約可能日の判定への当てはめ
 - [論点別の補足](external-evidence.md)：資料を組み合わせた解釈と適用限界
 - [レビュー観点と試験の対応表](review-test-matrix.md)：人の判断、機械的検査の候補、検査だけでは保証しないこと
 
