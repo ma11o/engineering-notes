@@ -42,7 +42,8 @@ markdown_extensions:
 
 nav:
   - ログ設計を理解する: README.md
-  - 共通例：レポート出力ジョブ: example.md
+  - 共通例1：レポート出力ジョブ: example.md
+  - 共通例2：予約の問い合わせ: example-reservation.md
   - ログ設計の原則: principles.md
   - イベントの設計: event-design.md
   - 処理をつなぐID: correlation.md
