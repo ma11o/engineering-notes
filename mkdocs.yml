@@ -51,6 +51,8 @@ nav:
   - 情報を守る: security-and-privacy.md
   - 記録の届き方と限界: reliability.md
   - 設計をレビューする: review-checklist.md
+  - 製品別の実践:
+      - New Relic と CloudWatch の役割分担: tools/newrelic-cloudwatch.md
   - リサーチ資料:
       - research/README.md
       - 書籍ノート: research/reading-notes.md
