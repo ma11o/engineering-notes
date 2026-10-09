@@ -251,7 +251,44 @@ fitness function は「指標・しきい値・いつどこで実行するか・
 | 業務の測定を軽視する | 技術的な値は良いのに、関係者の関心とずれる | 第7章 pp.121–122 |
 | 測りすぎる、精度にこだわる | 使われない測定が残り、見直されない | 第7章 pp.121–122 |
 
-## 13. 実務と照合するときの問い
+## 13. 補足: ADR（設計判断の記録）
+
+第1章と第10章に ADR（Architecture Decision Record：設計判断を一件ずつ短い文書に残したもの）が出てくる。ただし本は、ADR の書き方や運用を扱っていない。ここでは本の記述と、一次資料で確かめた一般的な運用を分けて置く。
+
+### 本の記述
+
+- 第1章のチームは毎週集まり、これから行う spike（技術検証）と ADR を議論し、four key metrics を見ていた。ADR という言葉は Michael Nygard が考えた。［第1章 p.18］
+- 第10章のチームは、障害の分析を受けて「ジョブはすぐに失敗させ、リトライはキューに任せる」と決め、ADR に記録した。次の障害では、ADR に書いたとおり指数バックオフで再試行されていることを、指標で確かめた。［第10章 p.181］
+
+### 一次資料での運用
+
+2026-10-10 に次の資料で確認した。
+
+- Michael Nygard, [Documenting Architecture Decisions](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions)（2011-11-15）
+- [MADR](https://adr.github.io/madr/)（Markdown Architectural Decision Records）4.0.0（2024-09-17 リリース）
+- AWS Prescriptive Guidance, [ADR process](https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html)
+- Microsoft Azure Well-Architected Framework, [Maintain an architecture decision record](https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record)（2026-04-13 更新）
+
+| 問い | 資料での扱い |
+| --- | --- |
+| 何のために書くか | 判断の理由が残っていないと、後から来た人は、その判断をそのまま受け入れるか、知らずに覆すかしか選べない。それを避ける（Nygard） |
+| どの判断を書くか | 構造、非機能特性、依存関係、インターフェース、構築の技法に影響する判断（Nygard）。元に戻しにくい判断も含め、退けた選択肢も残す（Microsoft） |
+| 何を書くか | タイトル、Context（判断を左右する事情を、評価を交えず事実として書く）、Decision（「〜する」と能動態で書く）、Status、Consequences（良い結果だけでなく、すべての結果）。全体で1〜2ページ（Nygard）。MADR はこれに、検討した選択肢と、決定を守れているかの確かめ方（Confirmation）を加えたテンプレートを用意している |
+| いつ書くか | 決める前に Proposed として書き、チームのレビューを経て Accepted にする（AWS）。システムを作り始めるときに記録を始め、運用する間は続ける。既存のシステムでは、分かる範囲で過去の判断をさかのぼって書く（Microsoft） |
+| 誰が書くか | Nygard は役割を決めておらず、チーム（we）として書いている。AWS では、チームの誰でも書ける。書いた人が ADR owner として内容を保ち、周りに伝える。採用・差し戻し・却下はチームのレビューで決める。Microsoft は、ADR をソリューションアーキテクトの重要な成果物としている |
+| 判断を変えるとき | 採用した ADR は書き換えない。新しい ADR を書き、古いほうを superseded（置き換え済み）にして、新しいほうへのリンクを残す（Nygard、AWS、Microsoft）。却下した ADR も理由とともに残し、同じ議論を繰り返さないようにする（AWS） |
+| どこに置くか | リポジトリの `doc/arch/adr-NNN.md` に置き、番号は連番で再利用しない（Nygard）。MADR は `docs/decisions/NNNN-title-with-dashes.md` を勧めている |
+| どう使うか | コードレビューやアーキテクチャレビューで参照する。ADR に反する変更には、その ADR へのリンクを添えて修正を求める（AWS） |
+
+### 解釈・実務への示唆
+
+ADR は、fitness function と組にすると生きる。第10章のチームも、ADR に書いた決定（リトライはキューに任せる）が守られていることを指標で確かめている。MADR の Confirmation に、決定を確かめる fitness function を書いておけば、「何を決めたか」と「守れているかをどう確かめるか」が一か所にそろう。
+
+共通例1なら、「PDF 生成の再試行はワーカーが最大3回まで行う」を ADR に書き、`export.completed` の `attempt_count` が3を超えないことを fitness function で確かめる。超えたら、第11節で見たような、キューの再配信との重なりを疑う。
+
+第1章のように、ADR と指標を同じ場で議論する形も使える。決めたことと、その後の値の動きを並べて見られるので、判断を見直す時期が分かる。
+
+## 14. 実務と照合するときの問い
 
 - この指標はどの goal と question に答えるか。答える question のない指標はないか。
 - 品質特性ごとに、外から見える測定（利用者の体験）と内側の測定（コードやリソース）の両方があるか。
@@ -260,4 +297,5 @@ fitness function は「指標・しきい値・いつどこで実行するか・
 - 指標を見る人と、値を改善できる人は一致しているか。
 - 悪化したとき、原因を見分けるための別の指標が並んでいるか。
 - 目標として扱うもの（SLO など）と、道しるべとして扱うものを呼び分けているか。
+- 重要な設計判断が ADR に残り、それを確かめる指標や fitness function と結びついているか。
 - 使われなくなった測定を止める見直しの機会があるか。
