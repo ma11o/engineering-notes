@@ -1,2 +1,4 @@
 site/
-.claude/
+.claude/*
+!.claude/skills/
+.DS_Store
