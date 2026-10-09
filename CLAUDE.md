@@ -10,7 +10,7 @@
   - 共通例: `example.md`（共通例1：レポート出力ジョブ）、`example-reservation.md`（共通例2：予約の問い合わせ）
   - `tools/` — 製品に依存する実践（New Relic と CloudWatch の役割分担など）。一般論の章とは分ける
   - `research/` — 根拠資料。書籍ノート（`reading-notes.md`）、一次資料の確認記録（`sources/`）
-- `docs/architecture-metrics/` — アーキテクチャの計測。`README.md` がテーマの入口、`reading-notes.md` が書籍ノート
+- `docs/architecture-metrics/` — アーキテクチャの計測。`README.md` が本全体の要約で、テーマの入口。`research/reading-notes.md` が章ごとの書籍ノート（根拠資料）
 - 新しいテーマは `docs/<テーマ名>/README.md` を入口にして作り、`docs/index.md` と `nav` に足す
 - `mkdocs.yml` — サイト設定と目次（`nav`）
 - `.github/workflows/pages.yml` — `main` への push でビルドして Pages に公開

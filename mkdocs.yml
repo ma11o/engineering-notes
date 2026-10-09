@@ -66,5 +66,6 @@ nav:
           - 論点別の補足: logging/research/external-evidence.md
           - レビュー観点と試験の対応表: logging/research/review-test-matrix.md
   - アーキテクチャの計測:
-      - アーキテクチャの計測: architecture-metrics/README.md
-      - 書籍ノート: architecture-metrics/reading-notes.md
+      - 要約: architecture-metrics/README.md
+      - リサーチ資料:
+          - 書籍ノート: architecture-metrics/research/reading-notes.md
