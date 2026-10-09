@@ -1,13 +1,14 @@
 site_name: Engineering Notes
 site_url: https://ma11o.github.io/engineering-notes/
 repo_url: https://github.com/ma11o/engineering-notes
-edit_uri: edit/main/logging/
-docs_dir: logging
+edit_uri: edit/main/docs/
+docs_dir: docs
 
 theme:
   name: material
   language: ja
   features:
+    - navigation.tabs
     - navigation.footer
     - navigation.top
     - navigation.indexes
@@ -41,24 +42,29 @@ markdown_extensions:
   - pymdownx.superfences
 
 nav:
-  - ログ設計を理解する: README.md
-  - 共通例1：レポート出力ジョブ: example.md
-  - 共通例2：予約の問い合わせ: example-reservation.md
-  - ログ設計の原則: principles.md
-  - イベントの設計: event-design.md
-  - 処理をつなぐID: correlation.md
-  - レベル・結果・通知: severity-and-outcomes.md
-  - 情報を守る: security-and-privacy.md
-  - 記録の届き方と限界: reliability.md
-  - 設計をレビューする: review-checklist.md
-  - 製品別の実践:
-      - New Relic と CloudWatch の役割分担: tools/newrelic-cloudwatch.md
-  - リサーチ資料:
-      - research/README.md
-      - 書籍ノート: research/reading-notes.md
-      - イベントと相関の根拠: research/sources/event-correlation.md
-      - レベル・結果・通知の根拠: research/sources/severity-outcomes.md
-      - 情報保護と記録保証の根拠: research/sources/log-guarantees.md
-      - 判断の理由を記録する先行例: research/sources/decision-reasons.md
-      - 論点別の補足: research/external-evidence.md
-      - レビュー観点と試験の対応表: research/review-test-matrix.md
+  - ホーム: index.md
+  - ログ設計:
+      - ログ設計を理解する: logging/README.md
+      - 共通例1：レポート出力ジョブ: logging/example.md
+      - 共通例2：予約の問い合わせ: logging/example-reservation.md
+      - ログ設計の原則: logging/principles.md
+      - イベントの設計: logging/event-design.md
+      - 処理をつなぐID: logging/correlation.md
+      - レベル・結果・通知: logging/severity-and-outcomes.md
+      - 情報を守る: logging/security-and-privacy.md
+      - 記録の届き方と限界: logging/reliability.md
+      - 設計をレビューする: logging/review-checklist.md
+      - 製品別の実践:
+          - New Relic と CloudWatch の役割分担: logging/tools/newrelic-cloudwatch.md
+      - リサーチ資料:
+          - logging/research/README.md
+          - 書籍ノート: logging/research/reading-notes.md
+          - イベントと相関の根拠: logging/research/sources/event-correlation.md
+          - レベル・結果・通知の根拠: logging/research/sources/severity-outcomes.md
+          - 情報保護と記録保証の根拠: logging/research/sources/log-guarantees.md
+          - 判断の理由を記録する先行例: logging/research/sources/decision-reasons.md
+          - 論点別の補足: logging/research/external-evidence.md
+          - レビュー観点と試験の対応表: logging/research/review-test-matrix.md
+  - アーキテクチャの計測:
+      - アーキテクチャの計測: architecture-metrics/README.md
+      - 書籍ノート: architecture-metrics/reading-notes.md
